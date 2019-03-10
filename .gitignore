@@ -23,5 +23,11 @@
 /public/assets
 .byebug_history
 
+/config/database.yml
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+# File project
+think.sublime-project
+think.sublime-workspace
+
