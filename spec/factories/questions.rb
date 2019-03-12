@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :question do
-    tile { "MyString" }
+    title { "MyString" }
     body { "MyText" }
   end
 end
