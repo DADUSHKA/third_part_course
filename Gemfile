@@ -36,6 +36,11 @@ group :development do
   gem "spring-commands-cucumber"
   gem 'spring-commands-rubocop'
   gem 'spring-commands-rack-console'
+  gem 'guard', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-rails', require: false
+  gem 'guard-spring', require: false
 end
 
 group :test do
