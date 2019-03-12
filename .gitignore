@@ -21,13 +21,15 @@
 /yarn-error.log
 
 /public/assets
-.byebug_history
+/.byebug_history
+/.rubocop.yml
+/.rubocop_todo.yml
 
 /config/database.yml
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 # File project
-think.sublime-project
-think.sublime-workspace
+/think.sublime-project
+/think.sublime-workspace
 
