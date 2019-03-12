@@ -1,5 +1,19 @@
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  Include:
+    - 'app/**/*.rb'
+    - 'config/**/*.rb'
+    - 'lib/**/*.rake'
+    - 'lib/**/*.rb'
+  Exclude:
+    # - 'spec/**/*'
+    - 'db/*.rb'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+  DisplayCopNames: true
+  StyleGuideCopsOnly: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 

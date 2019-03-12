@@ -28,6 +28,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '>= 3.3.0'
   gem 'spring'

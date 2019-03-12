@@ -22,6 +22,8 @@
 
 /public/assets
 .byebug_history
+.rubocop.yml
+.rubocop_todo.yml
 
 /config/database.yml
 
