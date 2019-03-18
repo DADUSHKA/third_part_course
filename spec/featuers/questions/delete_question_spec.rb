@@ -7,7 +7,7 @@ feature 'User can delete his question or answer' do
   scenario 'Authenticated user can delete his question' do
     sign_in(user)
 
-    question = create(:question, author: user)
+     question = create(:question, author: user)
 
     visit question_path(question)
 
@@ -22,13 +22,13 @@ feature 'User can delete his question or answer' do
   end
 
   scenario 'Authenticated user can not delete another''s question' do
-    # sign_in(user)
+    sign_in(user)
 
-    # question = create(:question, author: user1)
+    question = create(:question, author: user1)
 
-    # visit question_path(question)
+    visit question_path(question)
 
-    # expect(page).to have_no_content 'Delete question'
+    expect(page).to have_no_content 'Delete question'
   end
 
   scenario 'Non-authenticated user can not delete another''s question' do
