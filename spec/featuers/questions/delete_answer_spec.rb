@@ -21,13 +21,13 @@ feature 'User can delete his answer' do
   end
 
   scenario 'Authenticated user can not delete another''s answer' do
-    # sign_in(user)
+    sign_in(user)
 
-    # answer = create(:answer, question: question, author: user1)
+    answer = create(:answer, question: question, author: user1)
 
-    # visit question_path(question)
+    visit question_path(question)
 
-    # expect(page).to have_no_link('Delete', href: answer_path(answer))
+    expect(page).to have_no_link('Delete', href: answer_path(answer))
   end
 
   scenario 'Non-authenticated user can not delete another''s answer' do

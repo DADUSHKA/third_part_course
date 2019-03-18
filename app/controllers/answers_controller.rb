@@ -14,7 +14,7 @@ class AnswersController < ApplicationController
   def destroy
     @answer = Answer.find(params[:id])
 
-    if current_user
+    if current_user.author_of?(@answer)
       @answer.destroy
 
     else
