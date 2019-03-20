@@ -1,2 +1,8 @@
 h1 Question Index
-p= link_to "Ask question", new_question_path
+table
+  tr
+    td
+      p Question
+  = render @questions
+
+p= link_to 'Ask question', new_question_path

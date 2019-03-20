@@ -4,6 +4,7 @@ RSpec.describe AnswersController, type: :controller do
   let!(:question) { create(:question) }
 
   describe 'POST #create' do
+    log_in_user
 
     context 'with valid attributes' do
       let(:action) { post :create, params: { question_id: question.id,
@@ -15,7 +16,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to show view' do
         action
-        expect(response).to redirect_to assigns(:answer)
+        expect(response).to redirect_to question_path(question)
       end
     end
 
@@ -29,7 +30,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 're-renders new view' do
         action
-        expect(response).to render_template :new
+        expect(response).to render_template 'questions/show'
       end
     end
   end
