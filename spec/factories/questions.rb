@@ -6,11 +6,13 @@ FactoryBot.define do
   factory :question_s, parent: :question do
     title { generate(:titles) }
     body { "MyText" }
+    association :author, factory: :user
   end
 
   factory :question do
     title { "MyString" }
     body { "MyText" }
+    association :author, factory: :user
 
     trait :invalid do
       title { nil }

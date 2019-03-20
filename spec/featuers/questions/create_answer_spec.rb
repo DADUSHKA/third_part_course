@@ -7,7 +7,7 @@ feature "The user, while on the question page, can write the answer to the quest
 } do
 
     given(:user) {create(:user)}
-    let(:question) { create(:question) }
+    given(:question) { create(:question) }
 
     describe 'Authenticated user' do
     background do
