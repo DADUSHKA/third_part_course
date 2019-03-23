@@ -15,10 +15,6 @@ feature "The user, while on the question page, can write the answer to the quest
       visit question_path(question)
     end
 
-    scenario 'sees the input form for the response' do
-      find_field('Body').value
-    end
-
     scenario 'write the answer to the question' do
       fill_in 'Body', with: 'text text text'
       click_on 'Reply'
@@ -37,7 +33,6 @@ feature "The user, while on the question page, can write the answer to the quest
 
     scenario 'Unauthenticated user write the answer to the question' do
     visit question_path(question)
-    find_field('Body').value
     fill_in 'Body', with: 'text text text'
     click_on 'Reply'
 

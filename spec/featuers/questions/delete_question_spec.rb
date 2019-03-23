@@ -6,17 +6,12 @@ feature 'User can delete his question or answer' do
    given(:question) { create(:question, author: user) }
    given(:question1) { create(:question, author: user1) }
 
-   given(:view_content) do
-    expect(page).to have_content question.body
-    expect(page).to have_content question.title
-   end
-
   scenario 'Authenticated user can delete his question' do
     sign_in(user)
 
     visit question_path(question)
-    view_content
-    expect(page).to have_content 'Delete question'
+    expect(page).to have_content question.body
+    expect(page).to have_content question.title
 
     click_on 'Delete question'
 
@@ -30,7 +25,8 @@ feature 'User can delete his question or answer' do
     sign_in(user)
 
     visit question_path(question1)
-    view_content
+    expect(page).to have_content question.body
+    expect(page).to have_content question.title
     expect(page).to have_no_content 'Delete question'
   end
 
