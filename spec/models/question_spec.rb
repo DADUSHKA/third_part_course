@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe Question, type: :model do
   it { should have_many(:answers).dependent(:delete_all) }
   it { should belong_to(:author) }

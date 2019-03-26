@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'Logged in user can sign out', %q{
   In order to finish work
   logged in user can sign out

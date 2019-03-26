@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'User is able to view questions list', %q{
   Any user is able to view question list
 } do

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'User can view a question and its answers', %q{
   User can view any questions and those answers
 } do

@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature "The user, while on the question page, can write the answer to the question", %q{
   To write an answer to a question
   As an authenticated user

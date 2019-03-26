@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'User can delete his answer' do
   given(:user) { create(:user)}
   given(:user1) { create(:user) }

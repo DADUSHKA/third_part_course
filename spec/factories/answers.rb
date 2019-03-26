@@ -10,7 +10,6 @@ FactoryBot.define do
 
     trait :invalid do
       body { nil }
-      question
     end
   end
 end

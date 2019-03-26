@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'User can sign up', %q{
   In order to user the service
   User can sign up

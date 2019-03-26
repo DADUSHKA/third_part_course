@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature 'User can sign in', %q{
   In order to ask questions
   As an unauthenticated user
