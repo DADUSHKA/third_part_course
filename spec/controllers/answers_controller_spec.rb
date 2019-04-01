@@ -7,7 +7,7 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with valid attributes' do
       let(:action) { post :create, params: { question_id: question.id,
-       answer: attributes_for(:answer), format: :js } }
+       answer: attributes_for(:answer) } }
 
       it 'check connection with logged-in user' do
         action
@@ -20,13 +20,13 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to show view' do
         action
-        expect(response).to render_template :create
+        expect(response).to redirect_to question_path(question)
       end
     end
 
     context 'with invalid attributes' do
       let(:action) { post :create, params: { question_id: question.id,
-       answer: attributes_for(:answer, :invalid) }, format: :js }
+       answer: attributes_for(:answer, :invalid) } }
 
        it 'does not save the new answer' do
         expect { action }.to_not change(Answer, :count)
@@ -34,7 +34,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 're-renders new view' do
         action
-        expect(response).to render_template :create
+        expect(response).to render_template 'questions/show'
       end
     end
   end
@@ -70,40 +70,5 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to redirect_to question_path(answer.question)
       end
     end
-  end
-
-  describe 'PATCH #update' do
-    # let!(:answer) { create(:answer, question: question) }
-    # before { sign_in(answer.author) }
-
-    # context 'with valid attributes' do
-    #   let(:action) { patch :update, params: { id: answer,
-    #    answer: { body: 'new body' } }, format: :js }
-
-    #   it 'changes answer attributes' do
-    #     action
-    #     answer.reload
-    #     expect(answer.body).to eq 'new body'
-    #   end
-
-    #   it 'renders update view' do
-    #     action
-    #     expect(response).to render_template :update
-    #   end
-    # end
-
-    # context 'with invalid attributes' do
-    #   let(:action) { patch :update, params: { id: answer,
-    #    answer: attributes_for(:answer, :invalid) }, format: :js }
-
-    #   it 'does not change answer attributes' do
-    #     expect { action }.to_not change(answer, :body)
-    #   end
-
-    #   it 'renders update view' do
-    #     action
-    #     expect(response).to render_template :update
-    #   end
-    # end
   end
 end

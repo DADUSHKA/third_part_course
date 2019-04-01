@@ -3,9 +3,14 @@ class AnswersController < ApplicationController
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.new(answer_params)
     @answer.author = current_user
-    flash[:notice] = 'Your answer successfully created.' if @answer.save
+
+    if @answer.save
+      redirect_to question_path(@question), notice: 'Your answer successfully created.'
+    else
+     render 'questions/show'
+    end
   end
 
   def destroy
