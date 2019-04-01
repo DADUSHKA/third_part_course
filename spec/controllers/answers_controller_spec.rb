@@ -7,7 +7,7 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with valid attributes' do
       let(:action) { post :create, params: { question_id: question.id,
-       answer: attributes_for(:answer) } }
+       answer: attributes_for(:answer), format: :js } }
 
       it 'check connection with logged-in user' do
         action
@@ -20,13 +20,13 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to show view' do
         action
-        expect(response).to redirect_to question_path(question)
+        expect(response).to render_template :create
       end
     end
 
     context 'with invalid attributes' do
       let(:action) { post :create, params: { question_id: question.id,
-       answer: attributes_for(:answer, :invalid) } }
+       answer: attributes_for(:answer, :invalid), format: :js } }
 
        it 'does not save the new answer' do
         expect { action }.to_not change(Answer, :count)
@@ -34,7 +34,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 're-renders new view' do
         action
-        expect(response).to render_template 'questions/show'
+        expect(response).to render_template :create
       end
     end
   end

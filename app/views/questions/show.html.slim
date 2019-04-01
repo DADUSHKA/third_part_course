@@ -7,13 +7,12 @@ p= @question.body
 
 p Answers
 
-ol
-  = render @question.answers
+= render @question.answers
 
 br
-
-= form_with model: [@question, @answer] do |f|
+.answer-errors
   = render 'shared/errors', resource: @answer
+= form_with model: [@question, @answer] do |f|
   = f.label :body
-  = f.text_field :body
+  = f.text_area :body, id: 'answer_body'
   = f.submit 'Reply'

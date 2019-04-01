@@ -7,14 +7,14 @@ feature "The user, while on the question page, can write the answer to the quest
     given(:user) {create(:user)}
     given(:question) { create(:question) }
 
-    describe 'Authenticated user' do
+    describe 'Authenticated user', js: true do
     background do
       sign_in(user)
       visit question_path(question)
     end
 
     scenario 'write the answer to the question' do
-      fill_in 'Body', with: 'text text text'
+      fill_in 'answer_body', with: 'text text text'
       click_on 'Reply'
 
       expect(current_path).to eq question_path(question)
@@ -31,7 +31,7 @@ feature "The user, while on the question page, can write the answer to the quest
 
     scenario 'Unauthenticated user write the answer to the question' do
     visit question_path(question)
-    fill_in 'Body', with: 'text text text'
+    fill_in 'answer_body', with: 'text text text'
     click_on 'Reply'
 
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
