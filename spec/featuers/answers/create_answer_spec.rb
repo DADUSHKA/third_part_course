@@ -13,7 +13,7 @@ feature "The user, while on the question page, can write the answer to the quest
       visit question_path(question)
     end
 
-    scenario 'write the answer to the question' do
+    scenario 'write the answer to the question', js: true do
       fill_in 'Body', with: 'text text text'
       click_on 'Reply'
 
@@ -22,7 +22,7 @@ feature "The user, while on the question page, can write the answer to the quest
       expect(page).to have_content 'text text text'
     end
 
-    scenario "write the answer with errors" do
+    scenario "write the answer with errors", js: true do
      click_on 'Reply'
 
      expect(page).to have_content "Body can't be blank"
