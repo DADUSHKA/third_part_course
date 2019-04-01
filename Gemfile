@@ -21,6 +21,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Gems set in hand
 gem 'slim-rails'
 gem 'devise'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
