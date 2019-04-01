@@ -32,7 +32,7 @@ feature "The user, while on the question page, can write the answer to the quest
    end
  end
 
- scenario 'Unauthenticated user write the answer to the question', js: true do
+ scenario 'Unauthenticated user write the answer to the question' do
   visit question_path(question)
   fill_in 'answer-text', with: 'text text text'
   click_on 'Reply'
