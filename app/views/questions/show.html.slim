@@ -9,10 +9,10 @@ p Answers
 .answers
   = render @question.answers
 
-br
-.answer-errors
-  = render 'shared/errors', resource: @answer
-= form_with model: [@question, @answer] do |f|
-  = f.label :body
-  = f.text_area :body, id: 'answer-text'
-  = f.submit 'Reply'
+.form-create-answer
+  .answer-errors
+    = render 'shared/errors', resource: @answer
+  = form_with model: [@question, @answer] do |f|
+    = f.label :body
+    = f.text_area :body, id: 'answer-text'
+    = f.submit 'Reply'

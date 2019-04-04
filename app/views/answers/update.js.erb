@@ -1,8 +1,15 @@
-$('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
-$('.notice').html('<%= notice %>');
+<% answer_error_id = ".answer-error-#{@answer.id}" %>
+$('<%= answer_error_id %>').html('<%= render 'shared/errors', resource: @answer %>');
+
+<% notice_id = ".notice-#{@answer.id}" %>
+$('<%= notice_id %>').html('<%= notice %>');
 
 <% if !@answer.errors.present? %>
-  $('.answers').html('<%= j render @question.answers %>');
-  // <% answer_id = "#answer-#{@answer.id}" %>
-  // $('<%= answer_id %>').append('<%= j render @answer %>');
+  <% answer_id = ".answer-#{@answer.id}" %>
+  $('<%= answer_id %>').replaceWith('<%= j render @answer %>');
 <% end %>
+
+function clean(){
+  $(".notice").empty()
+}
+setTimeout(clean, 3000);
