@@ -1,6 +1,7 @@
 RSpec.describe AnswersController, type: :controller do
-  let!(:question) { create(:question) }
   let(:user) { create(:user) }
+  let(:user1) { create(:user) }
+  let!(:question) { create(:question, author: user) }
 
   describe 'POST #create' do
     before { log_in(user) }
@@ -103,6 +104,29 @@ RSpec.describe AnswersController, type: :controller do
       it 'renders update view' do
         action
         expect(response).to render_template :update
+      end
+    end
+  end
+
+  describe "Set best answer" do
+    let!(:answer) { create(:answer, question: question) }
+    let(:action) { post :assigning_as_best, params: {id: answer} }
+
+    context 'author this question' do
+      it 'assigns best' do
+        sign_in(user)
+        action
+        answer.reload
+        expect(answer.best).to eq true
+      end
+    end
+
+    context 'non-author this question' do
+      it 'assigns best' do
+        sign_in(user1)
+        action
+        answer.reload
+        expect(answer.best).to eq false
       end
     end
   end
