@@ -41,7 +41,7 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'DELETE #destroy' do
     let!(:answer) { create(:answer, question: question) }
-    let(:delete_action) { delete :destroy, params: {id: answer} }
+    let(:delete_action) { delete :destroy, params: {id: answer}, format: :js }
 
     before { sign_in(answer.author) }
 
@@ -52,7 +52,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to question show' do
         delete_action
-        expect(response).to redirect_to question_path(answer.question)
+        expect(response).to render_template :destroy
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'redirects to question#show' do
         delete_action
-        expect(response).to redirect_to question_path(answer.question)
+        expect(response).to render_template :destroy
       end
     end
   end

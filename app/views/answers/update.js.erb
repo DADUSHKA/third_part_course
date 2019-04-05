@@ -1,9 +1,6 @@
 <% answer_error_id = ".answer-error-#{@answer.id}" %>
 $('<%= answer_error_id %>').html('<%= render 'shared/errors', resource: @answer %>');
 
-<% notice_id = ".notice-#{@answer.id}" %>
-$('<%= notice_id %>').html('<%= notice %>');
-
 <% if !@answer.errors.present? %>
   <% answer_id = ".answer-#{@answer.id}" %>
   $('<%= answer_id %>').replaceWith('<%= j render @answer %>');

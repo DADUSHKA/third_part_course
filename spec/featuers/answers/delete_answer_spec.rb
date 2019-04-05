@@ -4,7 +4,7 @@ feature 'User can delete his answer' do
   given(:question) { create(:question, author: user) }
   given(:question1) { create(:question, author: user1) }
 
-  scenario 'Authenticated user can delete his answer' do
+  scenario 'Authenticated user can delete his answer', js: true do
     sign_in(user)
 
     answer = create(:answer, question: question, author: user)

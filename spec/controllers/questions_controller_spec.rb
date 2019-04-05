@@ -146,7 +146,6 @@ RSpec.describe QuestionsController, type: :controller do
       let(:user) { create(:user) }
 
       before do
-        # question
         sign_in(user)
       end
 

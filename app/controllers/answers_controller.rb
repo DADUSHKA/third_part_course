@@ -11,14 +11,12 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy if current_user.author_of?(@answer)
-
-    redirect_to question_path(@answer.question), notice: 'Answer was successfully deleted'
+    flash[:notice] = 'Answer was successfully deleted'
   end
 
   def update
     @answer.update(answer_params) if current_user.author_of?(@answer)
     flash.now[:notice] = 'The answer was updated successfully.'
-    @question = @answer.question
   end
 
   private
