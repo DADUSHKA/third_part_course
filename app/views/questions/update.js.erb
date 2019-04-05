@@ -1,0 +1,13 @@
+<% question_error_id = ".question-error-#{@question.id}" %>
+$('<%= question_error_id %>').html('<%= render 'shared/errors', resource: @question %>');
+
+<% if !@question.errors.present? %>
+  <% question_id = ".question-#{@question.id}" %>
+  $('<%= question_id %>').replaceWith('<%= j render @question %>');
+  // $('<%= question_id %>').modal("show")
+<% end %>
+
+function clean(){
+  $(".notice").empty()
+}
+setTimeout(clean, 3000);

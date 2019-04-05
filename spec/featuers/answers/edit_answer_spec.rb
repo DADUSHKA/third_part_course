@@ -20,7 +20,7 @@ feature 'User can edit his answer', %q{
 
   describe 'Authenticated user', js: true do
     background do
-      sign_in user
+      sign_in(user)
       visit question_path(question)
       click_on 'Edit'
     end
@@ -51,7 +51,7 @@ feature 'User can edit his answer', %q{
   end
 
     scenario "tries to edit other user's question" do
-      sign_in user
+      sign_in(user)
       visit question_path(question)
       expect(page).to have_no_link('Edit', href: answer_path(answer1))
     end
