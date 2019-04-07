@@ -1,11 +1,10 @@
 class Answer < ApplicationRecord
+  default_scope { order(best: :desc) }
 
-   default_scope { order(best: :desc) }
+  belongs_to :question
+  belongs_to :author, class_name: 'User'
 
-   belongs_to :question
-   belongs_to :author, class_name: 'User'
-
-   validates :body, presence: true
+  validates :body, presence: true
 
   def assigning_best_answer
     transaction do

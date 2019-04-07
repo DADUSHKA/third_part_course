@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
+
   def index
     @questions = Question.all
   end
@@ -20,7 +21,7 @@ class QuestionsController < ApplicationController
       redirect_to @question, notice: 'Your question successfully created.'
     else
       render :new
-    end
+     end
   end
 
   def update
@@ -29,7 +30,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-     if current_user.author_of?(question)
+    if current_user.author_of?(question)
       question.destroy
       redirect_to questions_path, notice: 'Question was successfully deleted'
     else

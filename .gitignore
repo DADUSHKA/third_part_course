@@ -32,4 +32,9 @@
 # File project
 /think.sublime-project
 /think.sublime-workspace
+/package.json
+/.ruby-gemset
+/.ruby-version
+/Guardfile
+/.vscode
 

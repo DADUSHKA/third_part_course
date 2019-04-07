@@ -1,18 +1,20 @@
-
 p class="notice"
   = notice
 - if answer.persisted?
   div class="answer-#{answer.id}"
     div class="answer-error-#{answer.id}"
       = render 'shared/errors', resource: @answer
+    li
+      = answer.body
+      - if answer.best?
+        p Best answer of all
+      - if current_user&.author_of?(answer)
+        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+        = link_to 'Delete', answer_path(answer), method: :delete, remote: true
+        - if !answer.best?
+          = link_to "Best answer", assigning_as_best_answer_path(answer), method: :post, class: 'best-answer-link', remote: true
 
-    = answer.body
-    - if current_user&.author_of?(answer)
-      = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-      = link_to 'Delete', answer_path(answer), method: :delete, remote: true
-
-
-    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-      = f.label :body, 'Your answer'
-      = f.text_area :body
-      = f.submit 'Save'
+      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+        = f.label :body, 'Your answer'
+        = f.text_area :body
+        = f.submit 'Save'

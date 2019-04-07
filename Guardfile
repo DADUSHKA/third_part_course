@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # По умолчанию запускаем только необходимых для тестов наблюдателей,
 # то есть всех, кроме server.
 # Для запуска всех: bundle exec guard -g default
@@ -5,8 +7,8 @@ scope groups: %w[specs server]
 
 group 'specs' do
   # запускаем тесты и использованием Spring
-  guard :rspec, cmd: "bin/spring rspec" do
-    require "guard/rspec/dsl"
+  guard :rspec, cmd: 'bin/spring rspec' do
+    require 'guard/rspec/dsl'
     dsl = Guard::RSpec::Dsl.new(self)
 
     # Файлы тестов
