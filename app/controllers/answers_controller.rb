@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_answer, only: %i[destroy update assigning_as_best]
+  before_action :find_answer, only: %i[destroy update assign_as_best]
 
   def create
     @question = Question.find(params[:question_id])
@@ -19,8 +19,8 @@ class AnswersController < ApplicationController
     flash.now[:notice] = 'The answer was updated successfully.'
   end
 
-  def assigning_as_best
-    @answer.assigning_best_answer if current_user.author_of?(@answer.question)
+  def assign_as_best
+    @answer.assign_best if current_user.author_of?(@answer.question)
   end
 
   private
