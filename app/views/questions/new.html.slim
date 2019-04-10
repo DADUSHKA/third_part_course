@@ -1,8 +1,13 @@
 h1 Question New
 = form_with model: question, local: true do |f|
   = render 'shared/errors', resource: question
-  = f.label :title
-  = f.text_field :title
-  = f.label :body
-  = f.text_area :body
-  = f.submit 'Create'
+  p
+    = f.label :title
+    = f.text_field :title
+  p
+    = f.label :body
+    = f.text_area :body
+  p
+    = f.label :files
+    = f.file_field :files, multiple: true
+  p= f.submit 'Create'
