@@ -6,14 +6,14 @@ p= @question.body
   = link_to 'Delete question', question_path(@question), method: :delete
 
 p Answers
+.answers
+  ol
+    = render @question.answers
 
-ol
-  = render @question.answers
-
-br
-
-= form_with model: [@question, @answer] do |f|
-  = render 'shared/errors', resource: @answer
-  = f.label :body
-  = f.text_field :body
-  = f.submit 'Reply'
+.form-create-answer
+  .answer-errors
+    = render 'shared/errors', resource: @answer
+  = form_with model: [@question, @answer] do |f|
+    = f.label :body
+    = f.text_area :body, id: 'answer-text'
+    = f.submit 'Reply'

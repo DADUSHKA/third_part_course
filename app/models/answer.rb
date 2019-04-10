@@ -1,6 +1,15 @@
 class Answer < ApplicationRecord
-   belongs_to :question
-   belongs_to :author, class_name: 'User'
+  default_scope { order(best: :desc) }
 
-   validates :body, presence: true
+  belongs_to :question
+  belongs_to :author, class_name: 'User'
+
+  validates :body, presence: true
+
+  def assign_best
+    transaction do
+      question.answers.update_all(best: false)
+      update!(best: true)
+    end
+  end
 end

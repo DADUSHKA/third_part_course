@@ -1,0 +1,11 @@
+$('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
+
+<% if @answer.persisted? %>
+  $('.answers').append('<%= j render @answer %>');
+  $('#answer-text').val('');
+<% end %>
+
+function clean(){
+  $(".notice").empty()
+}
+setTimeout(clean, 3000);
