@@ -11,11 +11,14 @@ p class="notice"
       = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id }
 
       = form_with model: question, class: 'hidden', html: { id: "edit-question-#{question.id}" } do |f|
-        = render 'shared/errors', resource: question
+        / = render 'shared/errors', resource: question
         = f.label :title, 'Your question'
-        = f.text_field :title
+        p= f.text_field :title
         = f.label :body
-        = f.text_area :body
+        p= f.text_area :body
         = f.label :files
-        = f.file_field :files, multiple: true
+        p= f.file_field :files, multiple: true
         = f.submit 'Save'
+        div class="file"
+          = render "file"
+

@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
       redirect_to @question, notice: 'Your question successfully created.'
     else
       render :new
-     end
+    end
   end
 
   def update
@@ -36,6 +36,12 @@ class QuestionsController < ApplicationController
     else
       redirect_to @question
     end
+  end
+
+  def delete_attach_file
+    @file =  ActiveStorage::Attachment.find(params[:id])
+    question = @file.record
+    @file.purge if current_user.author_of?(question)
   end
 
   private

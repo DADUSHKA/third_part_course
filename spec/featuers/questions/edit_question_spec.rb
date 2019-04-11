@@ -26,7 +26,7 @@ feature "User can edit his question", %q{
       fill_in "Your question", with: "edited question"
       click_on "Save"
 
-      expect(page).to_not have_content question.title
+      expect(page).to_not have_content question1.title
       expect(page).to have_content "edited question"
       expect(page).to_not have_selector "textarea"
       expect(page).to have_content "The question was updated successfully."
@@ -40,6 +40,7 @@ feature "User can edit his question", %q{
     end
 
     scenario "edits a question with attached file" do
+
       fill_in "Your question", with: "edited question"
       attach_file "File", ["#{Rails.root}/spec/rails_helper.rb"]
 
@@ -49,6 +50,14 @@ feature "User can edit his question", %q{
       expect(page).to have_link "test.pdf"
       expect(page).to have_link "rails_helper.rb"
     end
+
+    scenario 'delete an attached question file' do
+      click_on "Save"
+      click_on "Edit question"
+      click_on 'Delete this file'
+      expect(page).to_not have_link "test.pdf"
+    end
+
   end
 
   scenario "tries to edit other user's question" do

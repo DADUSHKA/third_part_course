@@ -167,4 +167,8 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe "Delete attach file" do
+
+  end
 end
