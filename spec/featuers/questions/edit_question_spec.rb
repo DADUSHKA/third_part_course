@@ -6,7 +6,7 @@ feature "User can edit his question", %q{
   given!(:user) { create(:user) }
   given(:user1) { create(:user) }
   given(:question) { create(:question, author: user1) }
-  given!(:questions) { create_list(:question, 1, author: user) }
+  given!(:question1) { create(:question, :with_file, author: user) }
 
   scenario "Unauthenticated can not edit question" do
     visit questions_path
@@ -18,11 +18,8 @@ feature "User can edit his question", %q{
     background do
       sign_in(user)
       visit questions_path
-
-      questions.each do |question|
-        expect(page).to have_content question.title
-        click_on "Edit question"
-      end
+      expect(page).to have_content question1.title
+      click_on "Edit question"
     end
 
     scenario "edits his question" do
@@ -40,6 +37,17 @@ feature "User can edit his question", %q{
       click_on "Save"
 
       expect(page).to have_content "Title can't be blank"
+    end
+
+    scenario "edits a question with attached file" do
+      fill_in "Your question", with: "edited question"
+      attach_file "File", ["#{Rails.root}/spec/rails_helper.rb"]
+
+      click_on "Save"
+      visit question_path(question1)
+
+      expect(page).to have_link "test.pdf"
+      expect(page).to have_link "rails_helper.rb"
     end
   end
 
