@@ -23,6 +23,12 @@ class AnswersController < ApplicationController
     @answer.assign_best if current_user.author_of?(@answer.question)
   end
 
+  def delete_attach_file
+    @file =  ActiveStorage::Attachment.find(params[:id])
+    @answer = @file.record
+    @file.purge if current_user.author_of?(@answer)
+  end
+
   private
 
   def find_answer

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :answers, shallow: true, only: %i[create update destroy] do
       member do
         post :assigning_as_best
+        delete :delete_attach_file
       end
     end
   end

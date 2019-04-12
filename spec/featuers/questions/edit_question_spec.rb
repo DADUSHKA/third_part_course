@@ -57,7 +57,6 @@ feature "User can edit his question", %q{
       click_on 'Delete this file'
       expect(page).to_not have_link "test.pdf"
     end
-
   end
 
   scenario "tries to edit other user's question" do

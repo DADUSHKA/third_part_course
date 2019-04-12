@@ -8,7 +8,9 @@ p class="notice"
       = answer.body
       - if answer.files.attached?
         - answer.files.each do |file|
-          = link_to file.filename.to_s, url_for(file)
+          div class="file-#{file.id}"
+            = link_to file.filename.to_s, url_for(file)
+            = link_to "Delete this file", delete_attach_file_answer_path(file), method: :delete, remote: true
           br
       - if answer.best?
         p Best answer of all
@@ -21,6 +23,8 @@ p class="notice"
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
         = f.label :body, 'Your answer'
         = f.text_area :body
+        = f.label :files
+        p= f.file_field :files, multiple: true
         = f.submit 'Save'
 
 
