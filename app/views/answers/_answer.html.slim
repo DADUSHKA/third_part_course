@@ -6,6 +6,10 @@ p class="notice"
       = render 'shared/errors', resource: @answer
     li
       = answer.body
+      - if answer.files.attached?
+        - answer.files.each do |file|
+          = link_to file.filename.to_s, url_for(file)
+          br
       - if answer.best?
         p Best answer of all
       - if current_user&.author_of?(answer)
@@ -18,3 +22,5 @@ p class="notice"
         = f.label :body, 'Your answer'
         = f.text_area :body
         = f.submit 'Save'
+
+

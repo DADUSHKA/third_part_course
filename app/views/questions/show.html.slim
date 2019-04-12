@@ -20,5 +20,7 @@ p Answers
     = render 'shared/errors', resource: @answer
   = form_with model: [@question, @answer] do |f|
     = f.label :body
-    = f.text_area :body, id: 'answer-text'
+    p= f.text_area :body, id: 'answer-text'
+    = f.label :files
+    p= f.file_field :files, multiple: true
     = f.submit 'Reply'

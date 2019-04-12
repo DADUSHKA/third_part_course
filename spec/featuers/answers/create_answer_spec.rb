@@ -28,6 +28,16 @@ feature "The user, while on the question page, can write the answer to the quest
 
       expect(page).to have_content "Body can't be blank"
     end
+
+    scenario "asks a answer with attached file", js: true do
+      fill_in "answer-text", with: "text text text"
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on "Reply"
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
   end
 
   scenario "Unauthenticated user write the answer to the question" do
