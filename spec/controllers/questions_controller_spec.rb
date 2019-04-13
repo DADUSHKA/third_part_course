@@ -168,7 +168,23 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe "Delete attach file" do
+  describe "DELETE #delete_attach_file" do
+    let!(:file) { FilesTestHelper.pdf }
+    let(:delete_action) { delete :delete_attach_file, params: { id: file }, format: :js }
 
+    context "attach file question" do
+      before do
+        sign_in(user)
+      end
+
+      it "deletes file" do
+        expect { delete_action }.to change{ ActiveStorage::Attachment.count }.by(-1)
+      end
+
+      it "re-renders new view" do
+        delete_action
+        expect(response).to render_template :delete_attach_file
+      end
+    end
   end
 end
