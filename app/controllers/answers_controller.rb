@@ -26,7 +26,7 @@ class AnswersController < ApplicationController
   def delete_attach_file
     @file =  ActiveStorage::Attachment.find(params[:id])
     @answer = @file.record
-    @file.purge if current_user.author_of?(@answer)
+    @file.purge_later if current_user.author_of?(@answer)
   end
 
   private

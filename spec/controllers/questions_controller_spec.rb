@@ -169,8 +169,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe "DELETE #delete_attach_file" do
-    let!(:file) { FilesTestHelper.pdf }
-    let(:delete_action) { delete :delete_attach_file, params: { id: file }, format: :js }
+    let!(:question) { create(:question, :with_file) }
+    let(:delete_action) { delete :delete_attach_file, params: { id: question.files.first.id}, format: :js }
 
     context "attach file question" do
       before do
@@ -178,7 +178,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it "deletes file" do
-        expect { delete_action }.to change{ ActiveStorage::Attachment.count }.by(-1)
+        expect { delete_action }.to change{ ActiveStorage::Attachment.count }.by(0)
       end
 
       it "re-renders new view" do
