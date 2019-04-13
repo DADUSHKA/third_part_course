@@ -6,27 +6,21 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @answer = @question.answers.create(answer_params)
     @answer.author = current_user
-    flash[:notice] = 'Your answer successfully created.' if @answer.save
+    flash[:notice] = "Your answer successfully created." if @answer.save
   end
 
   def destroy
     @answer.destroy if current_user.author_of?(@answer)
-    flash[:notice] = 'Answer was successfully deleted'
+    flash[:notice] = "Answer was successfully deleted"
   end
 
   def update
     @answer.update(answer_params) if current_user.author_of?(@answer)
-    flash.now[:notice] = 'The answer was updated successfully.'
+    flash.now[:notice] = "The answer was updated successfully."
   end
 
   def assigning_as_best
     @answer.assign_best if current_user.author_of?(@answer.question)
-  end
-
-  def delete_attach_file
-    @file =  ActiveStorage::Attachment.find(params[:id])
-    @answer = @file.record
-    @file.purge_later if current_user.author_of?(@answer)
   end
 
   private

@@ -10,7 +10,7 @@ p class="notice"
         - answer.files.each do |file|
           div class="file-#{file.id}"
             = link_to file.filename.to_s, url_for(file)
-            = link_to "Delete this file", delete_attach_file_answer_path(file), method: :delete, remote: true
+            = link_to "Delete this file", attach_file_path(file), method: :delete, remote: true
           br
       - if answer.best?
         p Best answer of all

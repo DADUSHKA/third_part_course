@@ -18,7 +18,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.author = current_user
     if @question.save
-      redirect_to @question, notice: 'Your question successfully created.'
+      redirect_to @question, notice: "Your question successfully created."
     else
       render :new
     end
@@ -26,22 +26,16 @@ class QuestionsController < ApplicationController
 
   def update
     question.update(question_params) if current_user.author_of?(question)
-    flash.now[:notice] = 'The question was updated successfully.'
+    flash.now[:notice] = "The question was updated successfully."
   end
 
   def destroy
     if current_user.author_of?(question)
       question.destroy
-      redirect_to questions_path, notice: 'Question was successfully deleted'
+      redirect_to questions_path, notice: "Question was successfully deleted"
     else
       redirect_to @question
     end
-  end
-
-  def delete_attach_file
-    @file =  ActiveStorage::Attachment.find(params[:id])
-    question = @file.record
-    @file.purge if current_user.author_of?(question)
   end
 
   private
