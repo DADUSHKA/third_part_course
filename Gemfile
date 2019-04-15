@@ -42,7 +42,6 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'spring'
-  gem 'spring-commands-cucumber'
   gem 'spring-commands-rack-console'
   gem 'spring-commands-rspec'
   gem 'spring-commands-rubocop'
