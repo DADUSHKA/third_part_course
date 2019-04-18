@@ -1,6 +1,6 @@
 FactoryBot.define do
   sequence :titles do |n|
-    "MyString#{n}"
+    "MyQuestion#{n}"
   end
 
   factory :question_s, parent: :question do
@@ -10,7 +10,7 @@ FactoryBot.define do
   end
 
   factory :question do
-    title { 'MyString' }
+    title { 'MyQuestion' }
     body { 'MyText' }
     association :author, factory: :user
 

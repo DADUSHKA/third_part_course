@@ -1,22 +1,20 @@
+/форма создания вопроса
 h1 Question New
 = form_with model: question, local: true do |f|
   = render 'shared/errors', resource: question
   p
     = f.label :title
+    br
     = f.text_field :title
   p
     = f.label :body
+    br
     = f.text_area :body
   p
     = f.label :files
+    br
     = f.file_field :files, multiple: true
-  p Links:
-  p
-    = f.fields_for :links do |l|
-      p
-        = l.label :name, 'Link name'
-        = l.text_field :name
-      p
-        = l.label :url
-        = l.text_field :url
+  /вывод формы для создания ссылки относящейся к вопросу
+  h3 Links:
+  p= render "form_link", f: f
   p= f.submit 'Create'

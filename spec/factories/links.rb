@@ -1,6 +1,13 @@
 FactoryBot.define do
   factory :link do
-    name { "MyString" }
-    url { "MyString" }
+    name { 'My Link' }
+    url { 'https://github.com' }
+    association :linkable, factory: :question
+  end
+
+  factory :link_answer do
+    name { 'My Link' }
+    url { 'https://github.com' }
+    association :linkable, factory: :answer
   end
 end

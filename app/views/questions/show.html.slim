@@ -7,8 +7,13 @@ p= @question.body
 .links
   p Links:
   ul
-    - @question.links.each do |link|
-      li= link_to link.name, link.url
+    -@question.links.each do |link|
+      p class="link-id-#{link.id}"
+        -if link.to_gist?
+          p= render partial: 'gist', locals: { link: link }
+        -else
+          p= link_to link.name, link.url
+        p= link_to 'Delete link', link_path(id: link.id), method: :delete, remote: true
 /вывод прикрепленного файла к вопросу
 - if @question.files.attached?
   - @question.files.each do |file|
@@ -28,17 +33,12 @@ p Answers:
     = render 'shared/errors', resource: @answer
   = form_with model: [@question, @answer] do |f|
     = f.label :body, 'Your answer'
-    p= f.text_area :body, id: 'answer-text'
+    br
+    = f.text_area :body, id: 'answer-text'
     = f.label :files
-    p= f.file_field :files, multiple: true
-    /вложеная форма создания ссылки принадлежащей ответу
+    br
+    = f.file_field :files, multiple: true
+    /вывод вложеной формы создания ссылки принадлежащей ответу
     p Links:
-    p
-      = f.fields_for :links do |l|
-        p
-          = l.label :name, 'Link name'
-          = l.text_field :name
-        p
-          = l.label :url
-          = l.text_field :url
+    = render "form_link", f: f
     = f.submit 'Reply'

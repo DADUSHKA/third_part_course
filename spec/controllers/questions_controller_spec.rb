@@ -52,7 +52,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #edit" do
     before { log_in(user) }
 
-    before { get :edit, params: { id: question } }
+    before { get :edit, params: { id: question }, format: :js }
 
     it "renders edit view" do
       expect(response).to render_template :edit

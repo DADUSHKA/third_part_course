@@ -24,6 +24,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'devise'
 gem 'jquery-rails'
 gem 'slim-rails'
+gem "cocoon"
+gem 'valid_url'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
