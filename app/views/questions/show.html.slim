@@ -8,12 +8,12 @@ p= @question.body
   p Links:
   ul
     -@question.links.each do |link|
-      p class="link-id-#{link.id}"
+      div class="link-id-#{link.id}"
         -if link.to_gist?
           p= render partial: 'gist', locals: { link: link }
         -else
           p= link_to link.name, link.url
-        p= link_to 'Delete link', link_path(id: link.id), method: :delete, remote: true
+        p= link_to 'Delete link', link_path(link), method: :delete, remote: true
 /вывод прикрепленного файла к вопросу
 - if @question.files.attached?
   - @question.files.each do |file|

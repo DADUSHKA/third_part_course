@@ -1,5 +1,3 @@
-require "rails_helper"
-
 RSpec.describe AttachFileController, type: :controller do
   let(:user) { create(:user) }
   let(:user1) { create(:user) }

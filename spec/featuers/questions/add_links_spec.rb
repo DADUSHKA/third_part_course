@@ -7,7 +7,6 @@ feature 'User can add links to question', %q{
   given(:user) { create(:user) }
   given(:github_url) { 'https://github.com' }
   given(:gist_url) { 'https://gist.github.com/DADUSHKA/598b316da2fd9817e699f0b85b7f9cdf' }
-  # given(:question) { create }
 
   describe 'Links to question' do
     before do
@@ -47,6 +46,7 @@ feature 'User can add links to question', %q{
       expect(page).to have_css '.gist-file'
     end
   end
+
   scenario "can remove the link from your question", js: true do
     question = create(:question, author: user)
     link = create(:link, linkable: question)
@@ -55,5 +55,7 @@ feature 'User can add links to question', %q{
 
     expect(page).to have_link 'My Link', href: github_url
     click_on 'Delete link'
+
+    expect(page).to_not have_link 'My link', href: github_url
   end
 end
