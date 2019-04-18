@@ -12,11 +12,12 @@ p class="notice"
       p Links:
       ul
         - answer.links.each do |link|
-          p class="link-id-#{link.id}"
+          div class="link-id-#{link.id}"
             -if link.to_gist?
-              p= render partial: 'questions/gist', locals: { link: link }
+              p= render partial: 'links/gist', locals: { link: link }
             -else
               p= link_to link.name, link.url
+            p= link_to 'Delete link', link_path(link), method: :delete, remote: true
       /вывод прикрепленного к ответу файла
       - if answer.files.attached?
         - answer.files.each do |file|
@@ -37,6 +38,13 @@ p class="notice"
         = f.text_area :body
         = f.label :files
         p= f.file_field :files, multiple: true
+        p Links:
+        #tasks
+          = f.fields_for :links do |task|
+            = render 'links/link_fields', f: task
+          .links
+              = link_to_add_association 'add link', f, :links, partial: 'links/link_fields'
         = f.submit 'Save'
+
 
 

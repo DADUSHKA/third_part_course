@@ -16,5 +16,9 @@ h1 Question New
     = f.file_field :files, multiple: true
   /вывод формы для создания ссылки относящейся к вопросу
   h3 Links:
-  p= render "form_link", f: f
+  #tasks
+  = f.fields_for :links do |task|
+    = render 'links/link_fields', f: task
+  .links
+    = link_to_add_association 'add link', f, :links, partial: 'links/link_fields'
   p= f.submit 'Create'

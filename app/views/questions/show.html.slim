@@ -10,7 +10,7 @@ p= @question.body
     -@question.links.each do |link|
       div class="link-id-#{link.id}"
         -if link.to_gist?
-          p= render partial: 'gist', locals: { link: link }
+          p= render partial: 'links/gist', locals: { link: link }
         -else
           p= link_to link.name, link.url
         p= link_to 'Delete link', link_path(link), method: :delete, remote: true
@@ -28,17 +28,5 @@ p Answers:
     = render @question.answers
 
 /форма для создания ответа
-.form-create-answer
-  .answer-errors
-    = render 'shared/errors', resource: @answer
-  = form_with model: [@question, @answer] do |f|
-    = f.label :body, 'Your answer'
-    br
-    = f.text_area :body, id: 'answer-text'
-    = f.label :files
-    br
-    = f.file_field :files, multiple: true
-    /вывод вложеной формы создания ссылки принадлежащей ответу
-    p Links:
-    = render "form_link", f: f
-    = f.submit 'Reply'
+= render template: "answers/new"
+

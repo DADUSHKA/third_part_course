@@ -1,7 +1,0 @@
-#tasks
-  = f.fields_for :links do |task|
-    = render 'link_fields', f: task
-  .links
-    = link_to_add_association 'add link', f, :links
-
-

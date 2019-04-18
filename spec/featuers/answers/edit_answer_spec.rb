@@ -8,6 +8,7 @@ feature "User can edit his answer", %q{
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer, :with_file, question: question, author: user) }
   given!(:answer1) { create(:answer, question: question, author: user1) }
+  given(:github_url) { "https://github.com" }
 
   scenario "Unauthenticated can not edit answer" do
     visit question_path(question)
@@ -56,13 +57,50 @@ feature "User can edit his answer", %q{
       expect(page).to have_link "rails_helper.rb"
     end
 
-    scenario 'delete an attached question file' do
-     within ".answers" do
-      click_on 'Delete this file'
-      expect(page).to_not have_link "test.pdf"
+    scenario "adding a link when editing a answer" do
+      within ".answers" do
+        click_on "add link"
+      end
+
+      within all(".nested-fields")[0] do
+        fill_in "link-name", with: "My link"
+        fill_in "Url", with: github_url
+      end
+
+      within ".answers" do
+        click_on "add link"
+      end
+
+      within all(".nested-fields")[1] do
+        fill_in "link-name", with: "My link2"
+        fill_in "Url", with: github_url
+      end
+
+      click_on "Save"
+
+      expect(page).to have_link "My link", href: github_url
+      expect(page).to have_link "My link2", href: github_url
+    end
+
+    scenario "delete an attached question file" do
+      within ".answers" do
+        click_on "Delete this file"
+        expect(page).to_not have_link "test.pdf"
+      end
     end
   end
-end
+
+  scenario "can remove the link from your answer", js: true do
+    link = create(:link, linkable: answer)
+
+    sign_in(user)
+    visit question_path(question)
+    expect(page).to have_link "My Link", href: github_url
+
+    click_on "Delete link"
+
+    expect(page).to_not have_link "My link", href: github_url
+  end
 
   scenario "tries to edit other user's question" do
     sign_in(user)
