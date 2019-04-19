@@ -18,6 +18,7 @@ p= @question.body
 - if @question.files.attached?
   - @question.files.each do |file|
     p= link_to file.filename.to_s, url_for(file)
+p = 'Question with the reward!' if question.award.present?
 /ссылка на удаление вопроса
 - if current_user&.author_of?(@question)
   p= link_to 'Delete question', question_path(@question), method: :delete, remote: true

@@ -1,3 +1,4 @@
+= link_to 'Back to questions', questions_path
 /форма создания вопроса
 h1 Question New
 = form_with model: question, local: true do |f|
@@ -21,4 +22,15 @@ h1 Question New
     = render 'links/link_fields', f: task
   .links
     = link_to_add_association 'add link', f, :links, partial: 'links/link_fields'
+
+  h3 Award for the best answer:
+  p
+    = f.fields_for :award do |a|
+      p
+        = a.label :name, 'Award name'
+        = a.text_field :name
+      p
+        = a.label :image, 'Award image'
+        = a.file_field :image
+
   p= f.submit 'Create'
