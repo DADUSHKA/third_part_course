@@ -12,6 +12,7 @@ class Answer < ApplicationRecord
 
   def assign_best
     transaction do
+      author.awards << question.award if question.award.present?
       question.answers.update_all(best: false)
       update!(best: true)
     end

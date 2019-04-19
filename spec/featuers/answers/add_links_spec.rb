@@ -45,7 +45,7 @@ feature "User can add links to answer", %q{
       end
 
       click_on "Reply"
-save_and_open_page
+
       within ".answers" do
         expect(page).to_not have_css ".gist-file"
       end

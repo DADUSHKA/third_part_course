@@ -17,6 +17,7 @@ RSpec.describe Answer, type: :model do
     let!(:question) { create(:question, author: user) }
     let!(:answer1) { create(:answer, question: question, author: user) }
     let!(:answer2) { create(:answer, question: question, author: user) }
+    let!(:award) { create(:award, question: question) }
 
     it "set the best answer" do
       answer2.assign_best
@@ -30,6 +31,10 @@ RSpec.describe Answer, type: :model do
       answer1.reload
       expect(answer2).to be_best
       expect(answer1).to_not be_best
+    end
+
+    it 'give award to author of answer' do
+      expect { answer1.assign_best }.to change(user.awards, :count).by(1)
     end
   end
 end

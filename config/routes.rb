@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
+  get 'awards/index'
   root to: 'questions#index'
 
   devise_for :users
 
   resources :attach_file, only: :destroy
   resources :links, only: :destroy
+  resources :awards, only: :index
 
   resources :questions do
     resources :answers, shallow: true, only: %i[create update destroy] do
