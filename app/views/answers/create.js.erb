@@ -6,6 +6,6 @@ $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>');
 <% end %>
 
 function clean(){
-  $(".notice").empty()
+  $(".answer-errors").empty()
 }
 setTimeout(clean, 3000);

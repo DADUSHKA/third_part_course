@@ -1,7 +1,7 @@
  <% answer_id = ".answer-#{@answer.id}" %>
  $('<%= answer_id %>').remove();
- $('.notice').html('<%= notice %>');
+ $('.answers').html('<%= notice %>');
 function clean(){
-  $(".notice").empty()
+  $(".answers").empty()
 }
 setTimeout(clean, 3000);
