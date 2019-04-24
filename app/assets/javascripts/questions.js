@@ -1,8 +1,17 @@
 $(document).on('turbolinks:load', function(){
-   $('.question').on('click', '.edit-question-link', function(e) {
-       e.preventDefault();
-       $(this).hide();
-       var questionId = $(this).data('questionId');
-       $('form#edit-question-' + questionId).removeClass('hidden');
-   })
+ $('.question').on('click', '.edit-question-link', function(e) {
+   e.preventDefault();
+   $(this).hide();
+   var questionId = $(this).data('questionId');
+   $('form#edit-question-' + questionId).removeClass('hidden');
+ });
+
+ $('.question').on('ajax:success', function(e) {
+  var question = e.detail[0];
+  $el = $('.question');
+  $el.find('.vote').html('<p>'+ question.klass + ' ' + 'like:' + ' ' + question.choice + '</p>')
+  $el.find('.like').toggle();
+  $el.find('.deselecting').toggle()
+});
+
 });

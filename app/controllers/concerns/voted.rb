@@ -6,18 +6,22 @@ module Voted
   end
 
   def create_like
-    @voteable.like(current_user)
+    render_json if @voteable.like(current_user)
   end
 
   def create_dislike
-    @voteable.dislike(current_user)
+    render_json if @voteable.dislike(current_user)
   end
 
   def delete_vote
-    @voteable.deselecting(current_user)
+    render_json if @voteable.deselecting(current_user)
   end
 
   private
+
+  def render_json
+    render json: { choice: @voteable.choice, id: @voteable.id, klass: @voteable.class.to_s }
+  end
 
   def model_klass
     controller_name.classify.constantize
