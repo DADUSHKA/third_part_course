@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :awards, only: :index
 
   resources :questions, concerns: [:voteable] do
-    resources :answers, shallow: true, only: %i[create update destroy] do
+    resources :answers, shallow: true, only: %i[create update destroy], concerns: [:voteable] do
       member do
         post :assigning_as_best
       end
