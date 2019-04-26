@@ -76,16 +76,6 @@ ActiveRecord::Schema.define(version: 2019_04_22_180527) do
     t.index ["author_id"], name: "index_questions_on_author_id"
   end
 
-  create_table "rewards", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "user_id"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_rewards_on_question_id"
-    t.index ["user_id"], name: "index_rewards_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -114,6 +104,4 @@ ActiveRecord::Schema.define(version: 2019_04_22_180527) do
   add_foreign_key "awards", "questions"
   add_foreign_key "awards", "users"
   add_foreign_key "questions", "users", column: "author_id"
-  add_foreign_key "rewards", "questions"
-  add_foreign_key "rewards", "users"
 end

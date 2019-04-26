@@ -14,7 +14,9 @@ module Voteable
   end
 
   def deselecting(user)
-    votes.find_by(user_id: user.id).delete unless user_voted?(user)
+    if user.voted?(self) && !user.author_of?(self)
+      votes.find_by(user_id: user.id).delete
+    end
   end
 
   def choice
@@ -24,13 +26,8 @@ module Voteable
   private
 
   def change_rating(user, option)
-    if !user_voted?(user) && !user.author_of?(self)
+    if !user.voted?(self) && !user.author_of?(self)
       votes.create(choice: option, user_id: user.id)
     end
   end
-
-  def user_voted?(user)
-    user.voted?(self)
-  end
-
 end

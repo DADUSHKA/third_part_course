@@ -10,14 +10,13 @@ shared_examples_for 'voteable' do |voteable|
     end
 
     it { expect(Vote.last.choice).to eq 1 }
+    it { expect(Vote.last.user.id).to eq other_user.id }
+    it { expect(Vote.last.voteable_id).to eq resource.id }
   end
 
   describe 'like owner resource' do
-    before do
-      resource.like(user)
-    end
 
-    it { expect(Vote.last).to eq nil }
+    it { expect { resource.like(user) }.to change(Vote, :count).by(0) }
   end
 
   describe 'repeat voting like' do
@@ -26,7 +25,7 @@ shared_examples_for 'voteable' do |voteable|
       resource.like(other_user)
     end
 
-    it { expect(Vote.last.choice).to eq 1 }
+    it { expect(Vote.last.choice).to_not eq 2 }
   end
 
   describe 'dislike not owner resource' do
@@ -35,14 +34,12 @@ shared_examples_for 'voteable' do |voteable|
     end
 
     it { expect(Vote.last.choice).to eq -1 }
+    it { expect(Vote.last.user.id).to eq other_user.id }
+    it { expect(Vote.last.voteable_id).to eq resource.id }
   end
 
   describe 'dislike owner resource' do
-    before do
-      resource.dislike(user)
-    end
-
-    it { expect(Vote.last).to eq nil }
+    it { expect { resource.like(user) }.to change(Vote, :count).by(0) }
   end
 
   describe 'repeat voting dislike' do
@@ -51,7 +48,7 @@ shared_examples_for 'voteable' do |voteable|
       resource.dislike(other_user)
     end
 
-    it { expect(Vote.last.choice).to eq -1 }
+    it { expect(Vote.last.choice).to_not eq -2 }
   end
 
   describe 'deselecting vote owner rating' do
@@ -64,12 +61,14 @@ shared_examples_for 'voteable' do |voteable|
   end
 
   describe 'votings' do
-    let(:users) { create_list :user, 5 }
+    let(:users1) { create_list :user, 3 }
+    let(:users2) { create_list :user, 2 }
 
     before do
-      (0..4).each { |i| resource.like(users[i]) }
+      (0..2).each { |i| resource.like(users1[i]) }
+      (0..1).each { |i| resource.dislike(users2[i]) }
     end
 
-    it { expect(resource.choice).to eq 5 }
+    it { expect(resource.choice).to eq 1 }
   end
 end

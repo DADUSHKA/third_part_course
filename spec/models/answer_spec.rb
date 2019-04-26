@@ -38,4 +38,12 @@ RSpec.describe Answer, type: :model do
       expect { answer1.assign_best }.to change(user.awards, :count).by(1)
     end
   end
+
+  describe 'voteable' do
+    let(:user) { create(:user) }
+    let(:question) {create :question, author: user }
+    let(:answer) { create(:answer, question: question, author: user) }
+
+    it_behaves_like 'voteable', 'answer'
+  end
 end
