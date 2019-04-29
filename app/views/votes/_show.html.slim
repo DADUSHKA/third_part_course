@@ -1,0 +1,12 @@
+.vote
+  p
+    = "#{resource.class} like: #{resource.choice}"
+
+- if user_signed_in? && !current_user&.author_of?(resource)
+
+  .like class = "#{'hidden' if resource.votes.where(user_id: current_user.id).exists?}"
+    = link_to 'like', polymorphic_path(resource, action: :create_like), method: :post, data: { type: :json }, remote: true
+    = link_to 'dislike', polymorphic_path(resource, action: :create_dislike), method: :post, data: { type: :json }, remote: true
+
+  .deselecting class = "#{'hidden' unless resource.votes.where(user_id: current_user.id).exists?}"
+    = link_to 'deselecting', polymorphic_path(resource, action: :delete_vote), method: :delete, data: { type: :json }, remote: true

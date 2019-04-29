@@ -7,6 +7,8 @@ p class="notice"
     /вывод тела ответа
     li
       = answer.body
+      /ресурс для голосования за понравившийся ответ
+      = render 'votes/show', resource: answer
       /вывод ссылки для ответа
       .links
       p Links:

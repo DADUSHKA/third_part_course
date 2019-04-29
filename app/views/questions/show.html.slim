@@ -3,6 +3,9 @@
 h1 Question Show
 p= @question.title
 p= @question.body
+/ресурс для голосования за понравившийся вопрос
+.question
+  = render 'votes/show', resource: @question
 /вывод ссылки принадлежащей вопросу
 .links
   p Links:
