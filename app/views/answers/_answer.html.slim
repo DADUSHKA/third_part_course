@@ -9,6 +9,14 @@ p class="notice"
       = answer.body
       /ресурс для голосования за понравившийся ответ
       = render 'votes/show', resource: answer
+
+      - if user_signed_in?
+        = link_to 'Add comment', '#',class: 'button-answer-comment', data: { answer_id: answer.id }
+      div class="answer-comments-#{answer.id}"
+
+        | Comments:
+        = render answer.comments
+        = render 'comments/form', commentable: answer
       /вывод ссылки для ответа
       .links
       p Links:

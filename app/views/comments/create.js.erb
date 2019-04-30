@@ -6,8 +6,9 @@ $('textarea').val('');
 $("form#Question-comment-<%= @comment.commentable.id %>").addClass('hidden');
 $('.button-question-comment').removeClass('hidden');
 <% end %>
+
 <% if @commentable.is_a? Answer %>
-$("#answer_<%= @comment.commentable.id %> .answer-comments").append('<%= j render @comment %>');
+$(".answer-comments-<%= @comment.commentable.id %>").append('<%= j render @comment %>');
 $('textarea').val('');
 $("form#Answer-comment-<%= @comment.commentable.id %>").addClass('hidden');
 $('.button-answer-comment').removeClass('hidden');
