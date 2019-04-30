@@ -46,4 +46,8 @@ RSpec.describe Answer, type: :model do
 
     it_behaves_like 'voteable', 'answer'
   end
+
+  describe 'commentable' do
+    it_behaves_like 'has many comments'
+  end
 end
