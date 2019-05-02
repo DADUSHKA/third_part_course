@@ -15,7 +15,7 @@ feature 'User can create comments for question', %q{
       visit question_path(question)
     end
 
-    fscenario 'give comment for question', js: true do
+    scenario 'give comment for question', js: true do
       within '.question' do
         # save_and_open_page
         click_on 'Add comment'
