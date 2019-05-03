@@ -9,8 +9,8 @@ p class="notice"
     br
     /форма редактирования вопроса
     p = 'Question with the reward!' if question.award.present?
-    / - if current_user&.author_of?(question)
-    = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id }
-    = render "form", question: question
+    - if current_user&.author_of?(question)
+      = link_to 'Edit question', '', class: 'edit-question-link', data: { question_id: question.id }
+      = render "form", question: question
 
 

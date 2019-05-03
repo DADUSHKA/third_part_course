@@ -2,6 +2,8 @@ class Question < ApplicationRecord
   include Voteable
   include Commentable
 
+  after_create_commit :broadcast_question
+
   has_many :links, dependent: :delete_all, as: :linkable
   has_many :answers, dependent: :delete_all
   has_many_attached :files
@@ -13,4 +15,8 @@ class Question < ApplicationRecord
   belongs_to :author, class_name: 'User'
 
   validates :title, :body, presence: true
+
+  def broadcast_question
+    ActionCable.server.broadcast 'questions', data: self
+  end
 end
