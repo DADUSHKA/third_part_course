@@ -50,4 +50,14 @@ RSpec.describe Answer, type: :model do
   describe 'commentable' do
     it_behaves_like 'has many comments'
   end
+
+  it 'triggers :broadcast_answer on create & commit' do
+    answer_broadcast_data = double('Prepared answer hash for broadcasting')
+    question = create(:question)
+    answer = build(:answer, question: question)
+    expect(answer).to receive(:broadcast_answer).and_return(
+      ActionCable.server.broadcast("question/#{question.id}/answers", data: answer_broadcast_data)
+    )
+    answer.save
+  end
 end

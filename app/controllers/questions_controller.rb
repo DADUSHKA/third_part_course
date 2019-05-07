@@ -11,6 +11,9 @@ class QuestionsController < ApplicationController
     @answer = question.answers.build
     @answer.links.new
     @question = question
+    gon.current_user = current_user
+    gon.question = question
+    gon.question_id = question.id
   end
 
   def new
