@@ -1,0 +1,34 @@
+p= @question.title
+p= @question.body
+
+.comment_errors
+  = render 'shared/errors', resource: @comment
+= render 'votes/show', resource: @question
+
+- if user_signed_in?
+  = link_to 'Add comment', '#', class: 'button-question-comment', data: { question_id: @question.id }
+.question-comments
+  | Comments:
+  = render @question.comments
+  = render 'comments/form', commentable: @question
+
+.links
+  p Links:
+  ul
+    -@question.links.each do |link|
+      div class="link-id-#{link.id}"
+        -if link.to_gist?
+          p= render partial: 'links/gist', locals: { link: link }
+        -else
+          p= link_to link.name, link.url
+        p= link_to 'Delete link', link_path(link), method: :delete, remote: true
+
+
+- if @question.files.attached?
+  - @question.files.each do |file|
+    p= link_to file.filename.to_s, url_for(file)
+
+p = 'Question with the reward!' if question.award.present?
+
+- if current_user&.author_of?(@question)
+  p= link_to 'Delete question', question_path(@question), method: :delete, remote: true

@@ -3,6 +3,7 @@ html
   head
     meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
     title Think
+    = Gon::Base.render_data
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -10,6 +11,8 @@ html
   body
     header
       - if user_signed_in?
+        = link_to current_user.email
+        br
         = link_to 'Awards', awards_path
         br
         = link_to 'Log out', destroy_user_session_path, method: :delete

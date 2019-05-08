@@ -20,4 +20,17 @@ RSpec.describe Question, type: :model do
 
     it_behaves_like 'voteable', 'question'
   end
+
+  describe 'commentable' do
+    it_behaves_like 'has many comments'
+  end
+
+  it 'broadcast_question after create' do
+    question_broadcast_data = 'Prepared question hash for broadcasting'
+    question = build(:question)
+    expect(question).to receive(:broadcast_question).and_return(
+      ActionCable.server.broadcast('all_questions', data: question_broadcast_data)
+    )
+    question.save
+  end
 end

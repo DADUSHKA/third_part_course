@@ -1,36 +1,13 @@
 = link_to 'Back to questions', questions_path
-/вывод вопроса
+
 h1 Question Show
-p= @question.title
-p= @question.body
-/ресурс для голосования за понравившийся вопрос
 .question
-  = render 'votes/show', resource: @question
-/вывод ссылки принадлежащей вопросу
-.links
-  p Links:
-  ul
-    -@question.links.each do |link|
-      div class="link-id-#{link.id}"
-        -if link.to_gist?
-          p= render partial: 'links/gist', locals: { link: link }
-        -else
-          p= link_to link.name, link.url
-        p= link_to 'Delete link', link_path(link), method: :delete, remote: true
-/вывод прикрепленного файла к вопросу
-- if @question.files.attached?
-  - @question.files.each do |file|
-    p= link_to file.filename.to_s, url_for(file)
-p = 'Question with the reward!' if question.award.present?
-/ссылка на удаление вопроса
-- if current_user&.author_of?(@question)
-  p= link_to 'Delete question', question_path(@question), method: :delete, remote: true
-/вывод ответа к вопросу
+  = render 'questions_show'
+
 p Answers:
 .answers
   ol
     = render @question.answers
 
-/форма для создания ответа
 = render template: "answers/new"
 

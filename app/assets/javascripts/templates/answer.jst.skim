@@ -1,0 +1,34 @@
+- answer = @data['data']['answer']
+- files = @data['data']['files']
+- choice = @data['data']['vote']
+- links = @data['data']['links']
+
+=> answer.body
+
+.vote
+  p = "Answer rating: #{choice}"
+
+.like
+  a data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/#{answer.id}/create_like"
+    | like
+  a data-type="json" data-remote="true" rel="nofollow" data-method="post" href="/answers/#{answer.id}/create_dislike"
+    | dislike
+.deselecting style="display: none;"
+  a data-type="json" data-remote="true" rel="nofollow" data-method="delete" href="/answers/#{answer.id}/delete_vote"
+    | deselecting
+
+- $.each files, (index, file) =>
+  div[class="file-#{file['file_id']}"]
+  a href="#{file['file_url']}" = file['file_name']
+
+.links
+  p Links:
+  ul
+    - $.each links, (index, link) =>
+      - if link['gist_content']
+        li
+          = link['gist_content']
+      - else
+        li
+          a href="#{link['link_url']}" #{link['link_name']}
+

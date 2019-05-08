@@ -47,4 +47,45 @@ feature "The user, while on the question page, can write the answer to the quest
 
     expect(page).to have_content "You need to sign in or sign up before continuing."
   end
+
+  context 'mulitple sessions', js: true do
+    given(:github_url) { "https://github.com" }
+
+    scenario "question appears on another user's page" do
+      Capybara.using_session('guest') do
+        guest = create(:user)
+
+        sign_in(guest)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        sign_in(user)
+        visit question_path(question)
+
+        fill_in "answer-text", with: "text text text"
+
+        attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+
+        within all(".nested-fields")[0] do
+          fill_in "link-name", with: "My link"
+          fill_in "Url", with: github_url
+        end
+
+        click_on 'Reply'
+
+        expect(page).to have_content "text text text"
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+        expect(page).to have_link 'My link', href: github_url
+      end
+
+      Capybara.using_session('guest') do
+        expect(page).to have_content 'text text text'
+        expect(page).to have_link 'rails_helper.rb'
+        expect(page).to have_link 'spec_helper.rb'
+        expect(page).to have_link 'My link', href: github_url
+      end
+    end
+  end
 end

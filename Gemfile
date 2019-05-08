@@ -26,6 +26,8 @@ gem 'jquery-rails'
 gem 'slim-rails'
 gem "cocoon"
 gem 'valid_url'
+gem 'gon'
+gem 'skim'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

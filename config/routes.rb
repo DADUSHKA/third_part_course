@@ -11,12 +11,16 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :commentable do
+    resources :comments, only: :create
+  end
+
   resources :attach_file, only: :destroy
   resources :links, only: :destroy
   resources :awards, only: :index
 
-  resources :questions, concerns: [:voteable] do
-    resources :answers, shallow: true, only: %i[create update destroy], concerns: [:voteable] do
+  resources :questions, concerns: [:voteable, :commentable] do
+    resources :answers, shallow: true, only: %i[create update destroy], concerns: [:voteable, :commentable] do
       member do
         post :assigning_as_best
       end
