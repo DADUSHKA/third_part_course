@@ -3,8 +3,8 @@ App.cable.subscriptions.create { channel: "AnswersChannel", question_id: gon.que
     @follow()
 
   follow: ->
-    return unless gon.question_id
     @perform 'follow'
 
   received: (data) ->
-    $('.answers').append(JST["templates/answer"]({ data: data }))
+    if (data['data']['answer'].author_id != gon.current_user?.id)
+      $('.answers').append(JST["templates/answer"]({ data: data }))

@@ -1,7 +1,8 @@
 p= @question.title
 p= @question.body
 
-
+.comment_errors
+  = render 'shared/errors', resource: @comment
 = render 'votes/show', resource: @question
 
 - if user_signed_in?
