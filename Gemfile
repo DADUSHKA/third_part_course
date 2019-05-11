@@ -28,6 +28,8 @@ gem "cocoon"
 gem 'valid_url'
 gem 'gon'
 gem 'skim'
+gem 'omniauth', '~> 1.6'
+gem 'omniauth-github', '~> 1.1'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -51,10 +53,12 @@ group :development do
   gem 'spring-commands-rubocop'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+  gem "letter_opener"
 end
 
 group :test do
   gem 'capybara', '>= 2.15'
+  gem 'capybara-email'
   gem 'chromedriver-helper'
   gem 'fuubar'
   gem 'launchy'
