@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:awards) }
   it { should have_many(:votes) }
   it { should have_many(:comments) }
+  it { should have_many(:authorizations).dependent(:destroy) }
 
   describe "Author_of?" do
     let!(:user) { create(:user) }
@@ -36,6 +37,17 @@ RSpec.describe User, type: :model do
      it "user is not author of the vote" do
       votes << vote
       expect(not_voted_user).to_not be_voted(answer)
+    end
+  end
+
+  describe '.find_for_oauth' do
+    let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
+    let(:service) { double('Services::FindForOauth') }
+
+    it 'calls Services::FindForOauth' do
+      expect(Services::FindForOauth).to receive(:new).with(auth).and_return(service)
+      expect(service).to receive(:call)
+      User.find_for_oauth(auth)
     end
   end
 end
