@@ -29,7 +29,7 @@ feature "The user, while on the question page, can write the answer to the quest
       expect(page).to have_content "Body can't be blank"
     end
 
-    fscenario "asks a answer with attached file", js: true do
+    scenario "asks a answer with attached file", js: true do
       fill_in 'Your answer', with: "text text text"
 
       attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
@@ -62,7 +62,6 @@ feature "The user, while on the question page, can write the answer to the quest
         visit question_path(question)
 
         fill_in 'Your answer', with: "text text text"
-
         attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
 
         within all(".nested-fields")[0] do
@@ -71,12 +70,10 @@ feature "The user, while on the question page, can write the answer to the quest
         end
 
         click_on 'Reply'
-# save_and_open_page
         expect(page).to have_content "text text text"
         expect(page).to have_link 'rails_helper.rb'
         expect(page).to have_link 'spec_helper.rb'
         expect(page).to have_link 'My link', href: github_url
-        save_and_open_page
       end
 
       Capybara.using_session('guest') do
