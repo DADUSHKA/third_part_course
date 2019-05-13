@@ -13,7 +13,7 @@ feature "The user, while on the question page, can write the answer to the quest
     end
 
     scenario "write the answer to the question", js: true do
-      fill_in "answer-text", with: "text text text"
+      fill_in 'Your answer', with: "text text text"
       click_on "Reply"
 
       expect(current_path).to eq question_path(question)
@@ -29,8 +29,8 @@ feature "The user, while on the question page, can write the answer to the quest
       expect(page).to have_content "Body can't be blank"
     end
 
-    scenario "asks a answer with attached file", js: true do
-      fill_in "answer-text", with: "text text text"
+    fscenario "asks a answer with attached file", js: true do
+      fill_in 'Your answer', with: "text text text"
 
       attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
       click_on "Reply"
@@ -42,16 +42,14 @@ feature "The user, while on the question page, can write the answer to the quest
 
   scenario "Unauthenticated user write the answer to the question" do
     visit question_path(question)
-    fill_in "answer-text", with: "text text text"
-    click_on "Reply"
-
-    expect(page).to have_content "You need to sign in or sign up before continuing."
+    expect(page).to_not have_link "Reply"
   end
 
   context 'mulitple sessions', js: true do
     given(:github_url) { "https://github.com" }
 
-    scenario "question appears on another user's page" do
+    scenario "answer appears on another user's page" do
+
       Capybara.using_session('guest') do
         guest = create(:user)
 
@@ -63,7 +61,7 @@ feature "The user, while on the question page, can write the answer to the quest
         sign_in(user)
         visit question_path(question)
 
-        fill_in "answer-text", with: "text text text"
+        fill_in 'Your answer', with: "text text text"
 
         attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
 
@@ -73,11 +71,12 @@ feature "The user, while on the question page, can write the answer to the quest
         end
 
         click_on 'Reply'
-
+# save_and_open_page
         expect(page).to have_content "text text text"
         expect(page).to have_link 'rails_helper.rb'
         expect(page).to have_link 'spec_helper.rb'
         expect(page).to have_link 'My link', href: github_url
+        save_and_open_page
       end
 
       Capybara.using_session('guest') do

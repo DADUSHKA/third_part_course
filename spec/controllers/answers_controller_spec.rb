@@ -69,11 +69,6 @@ RSpec.describe AnswersController, type: :controller do
       it "does not delete answer" do
         expect { delete_action }.to_not change(Answer, :count)
       end
-
-      it "redirects to question#show" do
-        delete_action
-        expect(response).to render_template :destroy
-      end
     end
   end
 
