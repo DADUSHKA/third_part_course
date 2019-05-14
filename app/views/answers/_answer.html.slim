@@ -10,7 +10,7 @@ p class="notice"
       /ресурс для голосования за понравившийся ответ
       = render 'votes/show', resource: answer
 
-      - if user_signed_in?
+      - if can?(:create, Comment)
         = link_to 'Add comment', '#',class: 'button-answer-comment', data: { answer_id: answer.id }
       div class="answer-comments-#{answer.id}"
 
@@ -27,18 +27,21 @@ p class="notice"
               p= render partial: 'links/gist', locals: { link: link }
             -else
               p= link_to link.name, link.url
-            p= link_to 'Delete link', link_path(link), method: :delete, remote: true
+            - if can?(:destroy, link)
+             p= link_to 'Delete link', link_path(link), method: :delete, remote: true
       / #вывод прикрепленного к ответу файла
       - if answer.files.attached?
         - answer.files.each do |file|
           div class="file-#{file.id}"
             = link_to file.filename.to_s, url_for(file)
-            = link_to "Delete this file", attach_file_path(file), method: :delete, remote: true
+            - if can?(:destroy, file)
+              = link_to "Delete this file", attach_file_path(file), method: :delete, remote: true
           br
       - if answer.best?
         p Best answer of all
-      - if current_user&.author_of?(answer)
+      - if can?(:update, answer)
         = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
+      - if can?(:destroy, answer)
         = link_to 'Delete', answer_path(answer), method: :delete, remote: true
       - if !answer.best? & current_user&.author_of?(answer.question)
         = link_to "Best answer", assigning_as_best_answer_path(answer), method: :post, class: 'best-answer-link', remote: true
