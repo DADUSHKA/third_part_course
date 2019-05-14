@@ -3,6 +3,8 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
 
+  authorize_resource
+
   def index
     @questions = Question.all
   end

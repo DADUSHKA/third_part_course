@@ -14,7 +14,7 @@ feature "User can add links to answer", %q{
       visit question_path(question)
     end
     scenario "User adds links when give an answer", js: true do
-      fill_in "answer-text", with: "My answer"
+      fill_in 'Your answer', with: "My answer"
 
       within all(".nested-fields")[0] do
         fill_in "link-name", with: "My link"
@@ -37,7 +37,7 @@ feature "User can add links to answer", %q{
     end
 
     scenario "User adds link to gist", js: true do
-      fill_in "answer-text", with: "My Answer"
+      fill_in 'Your answer', with: "My Answer"
 
       within all(".nested-fields")[0] do
         fill_in "link-name", with: "My gist"

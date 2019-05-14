@@ -1,4 +1,4 @@
-RSpec.describe AttachFileController, type: :controller do
+RSpec.describe AttachmentsController, type: :controller do
   let(:user) { create(:user) }
   let(:user1) { create(:user) }
 

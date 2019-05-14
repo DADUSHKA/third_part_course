@@ -82,10 +82,10 @@ feature "User can edit his question", %q{
   end
 
   scenario "can remove the link from your question", js: true do
-    link = create(:link, linkable: question)
+    link = create(:link, linkable: question1)
 
     sign_in(user)
-    visit question_path(question)
+    visit question_path(question1)
     expect(page).to have_link "My Link", href: github_url
 
     click_on "Delete link"

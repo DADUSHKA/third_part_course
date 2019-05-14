@@ -5,7 +5,7 @@ p= @question.body
   = render 'shared/errors', resource: @comment
 = render 'votes/show', resource: @question
 
-- if user_signed_in?
+- if can?(:create, Comment)
   = link_to 'Add comment', '#', class: 'button-question-comment', data: { question_id: @question.id }
 .question-comments
   | Comments:
@@ -21,7 +21,8 @@ p= @question.body
           p= render partial: 'links/gist', locals: { link: link }
         -else
           p= link_to link.name, link.url
-        p= link_to 'Delete link', link_path(link), method: :delete, remote: true
+        - if can?(:destroy, link)
+         p= link_to 'Delete link', link_path(link), method: :delete, remote: true
 
 
 - if @question.files.attached?
@@ -30,5 +31,5 @@ p= @question.body
 
 p = 'Question with the reward!' if question.award.present?
 
-- if current_user&.author_of?(@question)
+- if can?(:destroy, @question)
   p= link_to 'Delete question', question_path(@question), method: :delete, remote: true

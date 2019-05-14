@@ -9,5 +9,6 @@ p Answers:
   ol
     = render @question.answers
 
-= render template: "answers/new"
+- if can?(:create, Answer)
+  = render template: "answers/new"
 
