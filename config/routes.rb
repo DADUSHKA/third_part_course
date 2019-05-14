@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :comments, only: :create
   end
 
-  resources :attach_file, only: :destroy
+  resources :attachments, only: :destroy
   resources :links, only: :destroy
   resources :awards, only: :index
 

@@ -35,7 +35,7 @@ p class="notice"
           div class="file-#{file.id}"
             = link_to file.filename.to_s, url_for(file)
             - if can?(:destroy, file)
-              = link_to "Delete this file", attach_file_path(file), method: :delete, remote: true
+              = link_to "Delete this file", attachment_path(file), method: :delete, remote: true
           br
       - if answer.best?
         p Best answer of all
