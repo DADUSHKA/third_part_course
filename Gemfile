@@ -32,6 +32,7 @@ gem 'omniauth', '~> 1.6'
 gem 'omniauth-github', '~> 1.1'
 gem 'omniauth-facebook'
 gem 'cancancan'
+gem 'doorkeeper'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
