@@ -10,16 +10,8 @@ describe 'Questions Api', type: :request do
    describe 'GET /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
 
-    context 'unauthorithed' do
-      it 'returns 401 status if there is no access_token' do
-        get api_path, headers: headers
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get api_path, params: { access_token: '1234' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
     end
 
     context 'authorized' do
@@ -73,23 +65,15 @@ describe 'Questions Api', type: :request do
   describe 'GET /api/v1/questions/:id' do
     let(:api_path) { "/api/v1/questions/#{question.id}" }
 
-    context 'unauthorithed' do
-      it 'returns 401 status if there is no access_token' do
-        get api_path, headers: headers
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        get api_path, params: { access_token: '1234' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
     end
 
     context 'authorized' do
       let!(:question) { create(:question, :with_file) }
       let!(:comments) { create_list(:comment, 3, commentable: question) }
       let(:comment) { comments.first }
-      let(:question_response) { json['question'] }
+      let(:object_response) { json['question'] }
       let!(:links) { create_list(:link, 2, linkable: question) }
       let(:link) { question.links.order(created_at: :desc).first }
 
@@ -101,66 +85,24 @@ describe 'Questions Api', type: :request do
 
       it 'returns all public fields' do
         %w[id title body created_at updated_at].each do |attr|
-          expect(question_response[attr]).to eq question.send(attr).as_json
+          expect(object_response[attr]).to eq question.send(attr).as_json
         end
       end
 
       it 'contains user object' do
-        expect(question_response['author']['id']).to eq question.author.id
+        expect(object_response['author']['id']).to eq question.author.id
       end
 
       it 'contains user object' do
-        expect(question_response['author']['id']).to eq question.author.id
+        expect(object_response['author']['id']).to eq question.author.id
       end
 
-      context 'comments' do
-        let(:comment) { comments.last }
-        let(:json_comments) { question_response['comments'] }
-        let(:json_comment) { json_comments.first }
-        let(:keys) { %w[id body user_id commentable_type commentable_id] }
+      it_behaves_like 'API comments'
 
-        it "returns list of objects" do
-          expect(json_comments.size).to eq 3
-        end
+      it_behaves_like 'API links'
 
-        it "return all public fields for objects" do
-          keys.each do |attr|
-            expect(json_comment[attr]).to eq comment.send(attr).as_json
-          end
-        end
-      end
-
-      context 'links' do
-        let(:link) { links.last }
-        let(:json_links) { question_response['links'] }
-        let(:json_link) { json_links.first }
-        let(:keys) { %w[name url] }
-
-        it "returns list of objects" do
-          expect(json_links.size).to eq 2
-        end
-
-        it "return all public fields for objects" do
-          keys.each do |attr|
-            expect(json_link[attr]).to eq link.send(attr).as_json
-          end
-        end
-      end
-
-      context 'files' do
-        let(:file) { question.files.first.blob }
-        let(:files_response) { question_response['files'] }
-        let(:file_response) { files_response.first }
-
-        it 'rerurn list of files' do
-          expect(files_response.size).to eq question.files.size
-        end
-
-        it 'returns all public fields' do
-          %w[id filename].each do |attr|
-            expect(file_response[attr]).to eq file.send(attr).as_json
-          end
-        end
+      it_behaves_like 'API files' do
+        let(:object) { question }
       end
     end
   end
@@ -169,16 +111,8 @@ describe 'Questions Api', type: :request do
     let(:api_path) { '/api/v1/questions' }
     let(:headers) { nil }
 
-    context 'unauthorithed' do
-      it 'returns 401 status if there is no access_token' do
-        post api_path, headers: headers
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        post api_path, params: { access_token: '1234' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :post }
     end
 
     context 'authorized' do
@@ -219,16 +153,8 @@ describe 'Questions Api', type: :request do
     let(:api_path) { "/api/v1/questions/#{question.id}" }
     let(:headers) { nil }
 
-    context 'unauthorithed' do
-      it 'returns 401 status if there is no access_token' do
-        patch api_path, headers: headers
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        patch api_path, params: { access_token: '1234' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :patch }
     end
 
     context 'authorized' do
@@ -294,30 +220,13 @@ describe 'Questions Api', type: :request do
     let(:api_path) { "/api/v1/questions/#{question.id}" }
     let(:headers) { nil }
 
-    context 'unauthorithed' do
-      it 'returns 401 status if there is no access_token' do
-        delete api_path, headers: headers
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 status if access_token is invalid' do
-        delete api_path, params: { access_token: '1234' }, headers: headers
-        expect(response.status).to eq 401
-      end
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :delete }
     end
 
-    context 'authorized' do
-      context 'with valid attributes' do
-        let(:send_request) { delete api_path, params: { id: question, access_token: access_token.token } }
-
-        it 'delete the question' do
-          expect { send_request }.to change(Question, :count).by(-1)
-        end
-        it 'status success' do
-          send_request
-          expect(response.status).to eq 204
-        end
-      end
+    it_behaves_like 'API Deletable' do
+      let(:method) { :delete }
+      let(:resource) { question }
     end
   end
 end
