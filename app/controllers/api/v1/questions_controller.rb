@@ -13,7 +13,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def create
-    @question = Question.new(question_params.merge(author: current_user))
+    @question = Question.new(question_params.merge(author: current_resource_owner))
 
     if @question.save
       render json: @question
