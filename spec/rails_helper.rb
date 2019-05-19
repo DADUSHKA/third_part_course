@@ -37,6 +37,7 @@ RSpec.configure do |config|
   config.include ControllerMacros, type: :controller
   config.include FeaturesHelper, type: :feature
   config.include FilesTestHelper, type: %i[feature, controller]
+  config.include ApiHelpers, type: :request
   # config.include FilesTestHelper, type: :controller
 
   # Capybara.javascript_driver = :selenium_chrome
