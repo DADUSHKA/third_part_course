@@ -1,2 +1,8 @@
-h1 DailyDigest#digest
-p = @greeting + ", find me in app/views/daily_digest_mailer/digest.html.slim"
+h1 Questions daily digest
+
+-if @questions.any?
+  ul
+    - @questions.each do |question|
+      = question.title
+-else
+  | There are no any questions for today.

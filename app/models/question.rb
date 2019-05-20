@@ -2,6 +2,8 @@ class Question < ApplicationRecord
   include Voteable
   include Commentable
 
+  scope :for_day, -> { where(created_at: Date.today.all_day) }
+
   after_create_commit :broadcast_question
   after_create :calculate_reputation
 

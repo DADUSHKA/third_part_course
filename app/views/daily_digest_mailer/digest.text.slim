@@ -1,3 +1,8 @@
-' DailyDigest#digest
-= "\r\n" * 2
-' #{@greeting + ", find me in app/views/daily_digest_mailer/digest.text.slim"}
+Questions daily digest
+
+-if @questions.any?
+  ul
+    - @questions.each do |question|
+      = "#{question.title}"
+-else
+  | There are no any questions for today.
