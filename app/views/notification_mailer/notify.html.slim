@@ -1,0 +1,7 @@
+h1 Question notification
+h2 = "New answer for your question '#{@question.body}'"
+
+= link_to @answer.body.truncate(15), url_for(@question)
+
+p = "#{@owner.email} responded:"
+p = @answer.body
