@@ -32,7 +32,11 @@ Rails.application.routes.draw do
         post :assigning_as_best
       end
     end
+
+    resources :subscriptions, only: %i[create]
   end
+
+  resources :subscriptions, only: %i[destroy]
 
   namespace :api do
     namespace :v1 do
