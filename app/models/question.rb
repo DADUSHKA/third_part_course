@@ -3,6 +3,7 @@ class Question < ApplicationRecord
   include Commentable
 
   after_create_commit :broadcast_question
+  after_create :calculate_reputation
 
   has_many :links, dependent: :delete_all, as: :linkable
   has_many :answers, dependent: :delete_all
@@ -18,5 +19,11 @@ class Question < ApplicationRecord
 
   def broadcast_question
     ActionCable.server.broadcast 'questions', data: self
+  end
+
+  private
+
+  def calculate_reputation
+    ReputationJob.perform_later(self)
   end
 end
