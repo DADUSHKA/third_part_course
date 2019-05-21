@@ -35,6 +35,9 @@ gem 'cancancan'
 gem 'doorkeeper'
 gem 'active_model_serializers', '~> 0.10'
 gem 'oj'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -59,6 +62,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
   gem "letter_opener"
+  gem 'jazz_fingers'
 end
 
 group :test do

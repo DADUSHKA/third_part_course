@@ -1,0 +1,8 @@
+Questions daily digest
+
+-if @questions.any?
+  ul
+    - @questions.each do |question|
+      = "#{question.title}"
+-else
+  | There are no any questions for today.

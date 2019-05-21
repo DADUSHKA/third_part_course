@@ -16,6 +16,7 @@ class QuestionsController < ApplicationController
     gon.current_user = current_user
     gon.question = question
     gon.question_id = question.id
+    @subscription = @question.subscriptions.find_by(user: current_user)
   end
 
   def new
