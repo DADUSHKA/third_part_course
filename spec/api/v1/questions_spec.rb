@@ -53,7 +53,7 @@ describe 'Questions Api', type: :request do
           expect(question_json['answers'].size).to eq 3
         end
 
-        it "return all public fields for objects" do
+        fit "return all public fields for objects" do
           public_keys.each do |attr|
             expect(answer_json[attr]).to eq answer.send(attr).as_json
           end
