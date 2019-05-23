@@ -7,7 +7,6 @@ feature 'user can search questions, answers, comments, users', %q{
 } do
   let!(:user) { create(:user) }
   let!(:another_user) { create(:user) }
-  # let!(:questions) { create_list(:question, 2, body: 'Question') }
   let!(:question) { create(:question, author: user, title: 'User Question',
                                                               body: 'Question body') }
   let!(:another_question) { create(:question, author: another_user,
