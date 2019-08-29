@@ -5,11 +5,7 @@ p= @question.body
   = render 'shared/errors', resource: @comment
 = render 'votes/show', resource: @question
 
-.subscribe
-  - if @question.subscribed?(current_user)
-    = link_to 'Unsubscribe', subscription_path(@subscription), method: :delete, cass: 'unsubscribe-question-link'
-  - else
-    = link_to 'Subscribe', question_subscriptions_path(@question), method: :post, class: 'subscribe-question-link'
+
 
 - if can?(:create, Comment)
   = link_to 'Add comment', '#', class: 'button-question-comment', data: { question_id: @question.id }

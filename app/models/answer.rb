@@ -6,7 +6,7 @@ class Answer < ApplicationRecord
 
   after_create_commit :broadcast_answer
 
-  belongs_to :question
+  belongs_to :question, touch: true
   belongs_to :author, class_name: 'User'
   has_many_attached :files
   has_many :links, dependent: :delete_all, as: :linkable
