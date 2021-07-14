@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock "~> 3.16.0"
 
 set :application, "qna"
 set :repo_url, "git@github.com:DADUSHKA/third_part_course.git"
@@ -8,8 +8,8 @@ set :repo_url, "git@github.com:DADUSHKA/third_part_course.git"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/vicstor/qna"
-set :deploy_user, "vicstor"
+set :deploy_to, "/home/server/qna"
+set :deploy_user, "server"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -27,7 +27,7 @@ append :linked_files, "config/database.yml", "config/master.key"
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "storage"
 
-after 'deploy:publishing', 'unicorn:restart'
+# after 'deploy:publishing', 'unicorn:restart'
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
