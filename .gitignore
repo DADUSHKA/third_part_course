@@ -42,3 +42,4 @@
 # Ignore search engine local index
 /config/*.sphinx.conf
 /db/sphinx
+Capfile
