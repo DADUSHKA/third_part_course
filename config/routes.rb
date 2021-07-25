@@ -5,9 +5,12 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # get ':controller(/:action(/:id))'
+  root to: 'say#hello'
+
   use_doorkeeper
   get 'awards/index'
-  root to: 'questions#index'
+  # root to: 'questions#index'
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks'}
 
   concern :voteable do
